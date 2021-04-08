@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+        <th:block layout:fragment="headtag"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
+        
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+        <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Doctor Portal</title>
+    </head>
+    <body th:classappend="${class}">
+        <section class="containter-fluid row">
+            <th:block layout:fragment="content"/>
+        </section>
+        <div id="divLoading" class="show"></div>
+        <th:block th:replace="fragments/footer :: footer"/>
+        <script type="text/javascript" th:src="@{/js/jquery-3.5.0.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+        <th:block layout:fragment="script"/>
+    </body>
+    <script>
+        document.onreadystatechange = function () {
+            if (document.readyState === 'complete') {
+                $("#divLoading").removeClass("show");
+            }
+        }
+    </script>
+</html>

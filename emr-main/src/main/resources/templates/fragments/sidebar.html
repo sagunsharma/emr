@@ -1,0 +1,33 @@
+<th:block th:fragment="sidebar">
+    <section class="ca-sidebar col-lg-2 col-md-2 col-sm-1">
+        <section class="col-lg-2 col-md-2 col-sm-1">
+            <img class="ca-leftlogo mx-auto d-block" th:src="@{/img/swasth.png}" alt="swasth logo" onclick="window.location.href='/'">
+            <button id="appointment" class="btn btn-primary btn-lg pt ca-leftnav hamdisplay" onclick="window.location.href='/'"
+                     th:classappend="${class == 'home' ? 'active' : ''}">
+                  <img class="ca-listimg app" > 
+                Appointments
+            </button>
+            <button id="register" class="btn btn-primary btn-lg pt ca-leftnav hamdisplay" onclick="window.location.href='/appointment'"
+                    th:classappend="${class == 'appointment' ? 'active' : ''}">
+                <img class="ca-listimg reg">  
+               Registration
+            </button>
+            <button id="patients_card" class="btn btn-primary btn-lg pt ca-leftnav hamdisplay" onclick="window.location.href='/patient'"
+                    th:classappend="${class == 'patient' ? 'active' : ''}">
+                <img class="ca-listimg pat">  
+                Patients
+            </button>
+            <div class="ca-profile">
+                <img class="ca-listimg" style="width:30px;position:absolute;bottom:0px;" th:src="@{/img/profile.png}"/>
+                <button class="btn btn-primary dropdown-toggle" id="dropdownMenuProfileBar"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${userName}">
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuProfileBar">
+                    <a class="dropdown-item" th:href="@{/profile}"
+                       th:if="${isAdmin != true && isManager != true}">Profile</a>
+                    <a class="dropdown-item" th:href="@{/logout}">Sign out</a>
+                </div>
+            </div>
+        </section>
+    </section>
+</th:block>

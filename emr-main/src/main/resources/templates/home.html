@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      layout:decorate="~{fragments/layout}">
+    <body>
+        <div layout:fragment="headtag" th:remove="tag">
+            <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}"/>
+            <link rel="stylesheet" type="text/css" th:href="@{/css/materialize.min.css}"/>
+        </div>
+        <div layout:fragment="content" th:remove="tag">
+            <th:block th:replace="fragments/sidebar"/>
+            <section class="ca-midbar col-lg-10 col-md-10 col-sm-11">
+                <div class="ca-container">
+                    <div class="row" style="margin-bottom:10px">
+                        <p class="ca-mainheader col-sm-12 col-md-9">Appointments</p>
+                    </div>
+                    <div class="top_row">
+                      <input class="newinput" style="height:35px;" type="search" placeholder="Search" id="search-inp"/>
+                      <div class="droplist">
+                            <div class="dropdown">
+                                <div class="dropdown-menu dropfilterstatus" aria-labelledby="dropdownMenuButton2">
+                                    <span class="dropdown-item">Yet to call</span>
+                                    <span class="dropdown-item">Called</span>
+                                </div>
+                                <div class="dropdown-menu dropfilterstatus" aria-labelledby="dropdownMenuButton2">
+                                    <span class="dropdown-item">Yet to visit</span>
+                                    <span class="dropdown-item">Completed</span>
+                                </div>
+                            </div>
+                            <button style="text-align:left;width:140px;height:auto;box-shadow:none" class="btn btn-primary dropdown-toggle bts" type="button" id="dropdownMenuButton3" 
+                                th:text="${date!=null ? #dates.format(#conversions.convert(date, 'java.util.Date'),'dd MMM, yyyy') : 'Today'}">
+                                Today
+                            </button>
+                        </div>
+                    </div>
+                    <input type="text" id="datepicker1" class="filterdatepicker date_time"/>
+                    <table class="table" id="patientlist">
+                        <thead>
+                            <tr>
+                                <th scope="col">Email</th>
+                                <th scope="col">Patient Name</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Doctor Name</th>
+                                <th scope="col">Department Name</th>
+                                <th scope="col">Appointment On</th>
+                                <th scope="col">Status</th>
+                                <th></th>
+                                <th>Amount</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+						<tbody>
+                            <tr th:each="appointment : ${appointments}" th:id="${appointment.id}">
+                                <td th:text="${appointment.email}"></td>
+                                <td th:text="${appointment.patientname}"></td>
+                                <td th:text="${appointment.phone}"></td>
+                                <td th:text="${appointment.doctorname}"></td>
+                                <td th:text="${appointment.department}"></td>
+                                <td th:text="${appointment.appointmenton}"></td>
+                                
+                                <td th:text="${appointment.status}"></td>
+
+                                <td></td>
+                                <td>
+                                    <a th:href="@{/processencounter(id=${appointment.id})}">
+                                        <img class="ca-icon" th:src="@{/img/arrow_blue.png}">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+            
+        </div>
+        
+        <div layout:fragment="script" th:remove="tag">
+        
+   
+            
+        <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/moment.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/datetime-moment.js}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+              let appointments = [{id:1}]
+            });
+        </script>
+        </div>
+    </body>
+</html>

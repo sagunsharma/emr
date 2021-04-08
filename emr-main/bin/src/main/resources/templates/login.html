@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      layout:decorate="~{fragments/layout}">
+    <body>
+        <div layout:fragment="content" th:remove="tag">
+        <div class="container">
+            <p><img th:src="@{/img/swasth.png}" alt="swasth logo" class="mainlogo"/></p>
+            <p class="head"></p>
+            <section class="containter-fluid bg">
+                <section class="row justify-content-center">
+                    <section class="col-12 col-sm-12 col-md-9">
+                        <form th:action="@{/login}" method="post" class="form-dialog">
+                            <p class="title intermfont">SIGN IN</p>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email ID</label>
+                              <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter your mail id">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <input name="password" type="password" class="form-control" placeholder="Enter your password">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block submit">SIGN IN</button><BR>
+                            <a style="text-align: center; display: block;" href="">FORGOT PASSWORD?</a>
+                        </form>
+                    </section>
+                </section>
+            </section>
+        </div>
+        </div>
+    </body>
+</html>

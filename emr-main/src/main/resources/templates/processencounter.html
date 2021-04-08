@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      layout:decorate="~{fragments/layout}">
+      <head>
+      <meta http-equiv='cache-control' content='no-cache'> 
+      </head>
+    <body>
+    
+        <div layout:fragment="headtag" th:remove="tag">
+        
+                <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}"/>
+            	<!-- <link rel="stylesheet" type="text/css" th:href="@{/css/materialize.min.css}"/> -->
+            	<link rel="stylesheet" type="text/css" th:href="@{/css/intakestyle.css}">
+       
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+				<!-- Latest compiled and minified CSS -->
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+				<!-- jQuery library -->
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+				<!-- Latest compiled JavaScript -->
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+				<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+				<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+				
+        </div>
+        <div layout:fragment="content" th:remove="tag">
+        
+        <div class="col-md-2">
+            <th:block th:replace="fragments/sidebar"/ class="col-md-2"> 
+        </div>
+        
+        
+        
+       
+          <div class="col-lg-6" id="intake">
+             <!-- 	NAVIGATION BAR -->
+             <nav class="navbar">
+                <a class="navbar-brand" id="intake-link" style="margin:-8%;padding:6%;color: #5F42A6;border: 6px solid;border-top: none;border-right: none;border-left: none;font-size:16px;font-weight:bold;" onclick="navigateToggle('intake-link');">Intake</a>
+                
+                <a class="navbar-brand" id="hpc-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;" onclick="navigateToggle('hpc-link');">HPC</a>
+                
+                <a class="navbar-brand" id="exam-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;" onclick="navigateToggle('exam-link');">Examination and Review</a>
+                
+                <a class="navbar-brand" id="diagnosis-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;" onclick="navigateToggle('diagnosis-link');">Diagnosis</a>
+                
+                <a class="navbar-brand" id="order-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;" onclick="navigateToggle('order-link');">Orders & Results</a>
+
+                <a class="navbar-brand" id="plan-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;" onclick="navigateToggle('plan-link');">Plan of Care</a>
+              </nav>
+              <br>
+              
+              <!-- CHIEF COMPLAINTS -->
+            
+              <p class="main-title">Chief Complaints</p>
+                <div class="input-group col-lg-12">
+                  <div class="col-md-12">
+                    <div id="tag-input" class="tag-input-holder">
+                      <input type="text" id="tag" placeholder="Start type your complaint" style="border-bottom-style:none" onkeyup="addTag(event)" autocomplete="off" th:value="${tags}" th:name="tag">        
+                      <div class="mic-div">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                        <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                      </svg>
+                    </div> 
+                    </div>
+                  </div>  
+                 </div>
+                <br>
+                <br>
+               <br>
+			<!-- VITALS TABLE -->
+			  <form action="/emrEncounter" method="get">
+            <p class="vitals-title">Vitals</p>
+                <table class="main-table">
+                    <tbody>
+                      <tr>
+                        <td scope="col" style="padding-top:15px;padding-left:2%"><div class="rounded-circle"><p class="circle-text">1</p></div></td>
+                        <td><p class="vitals">Blood pressure</p></th>
+                        <td> 
+                            <div  class="form-group col-md-2" style="padding-left: 30%;">
+                            <input class="form-control" id="ex1" type="text" placeholder="Sys" th:value="${bloddpressure_sys}" th:name="sys"><p class="vital-units" >mmHg</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div  class="form-group col-md-2">
+                                <input class="form-control"  id="ex1" type="text" placeholder="Dia" th:value="${bloddpressure_dia}" th:name="dia"><p class="vital-units">mmHg</p>
+                            </div>
+                        </td>
+                      </tr>
+                    
+                      <tr>
+                        <td scope="row" style="padding-top:15px;padding-left:2%"><div class="rounded-circle"><p class="circle-text">2</p></div></td>
+                        <td><p class="vitals">Tempreature</p></td>
+                        <td></td>
+                        <td>
+                            <div  class="form-group col-md-2">
+                                <input class="form-control" id="ex1" type="text" placeholder="Enter result" th:value="${tempreature}" th:name="temp"><p class="vital-units">degF</p>
+                            </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td scope="row" style="padding-top:15px;padding-left:2%"><div class="rounded-circle"><p class="circle-text">3</p></div></td>
+                        <td><p class="vitals">Respiratory Rate</p></td>
+                        <td></td>
+                        <td>
+                            <div  class="form-group col-md-2">
+                                <input class="form-control" id="ex1" type="text" placeholder="Enter result" th:value="${respiratory_rate}" th:name="respiratory"><p class="vital-units">PM</p>
+                            </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td scope="row" style="padding-top:15px;padding-left:2%"><div class="rounded-circle"><p class="circle-text">4</p></div></td>
+                        <td><p class="vitals">Pulse</p></td>
+                        <td></td>
+                        <td>
+                            <div  class="form-group col-md-2">
+                                <input class="form-control" id="ex1" type="text" placeholder="Enter result" th:value="${pulse}" th:name="pulse"><p class="vital-units">PM</p>
+                            </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td scope="row" style="padding-top:15px;padding-left:2%"><div class="rounded-circle"><p class="circle-text">5</p></div></td>
+                        <td><p class="vitals">SPO2</p></td>
+                        <td></td>
+                        <td>
+                            <div class="form-group col-md-2">
+                                <input class="form-control" id="ex1" type="text" placeholder="Enter result" th:value="${SPO2}" th:name="spo"><p class="vital-units">%</p>
+                            </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                   <input type="hidden" id="tags" th:name="tags" >
+                     <input type="hidden" id="id" th:name="id" th:value="${id}" >
+            <div class="container" id="container-footer">
+                <footer>
+                   <button type="submit" id="footer-btn">CONTINUE</button>
+                </footer>
+            </div>
+           </form>
+          </div>
+          
+          
+          
+          <!-- HPC Start -->
+          
+          
+          <div class="col-lg-6" id="hpc">
+             <!-- 	NAVIGATION BAR -->
+            <nav class="navbar">
+                <a class="navbar-brand" id="intake-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('intake-link');">Intake</a>
+                
+                <a class="navbar-brand" id="hpc-link" style="margin:-8%;padding:6%;color: #5F42A6;border: 6px solid;border-top: none;border-right: none;border-left: none;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('hpc-link');">HPC</a>
+                
+                <a class="navbar-brand" id="exam-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('exam-link');">Examination and Review</a>
+                
+                <a class="navbar-brand" id="diagnosis-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('diagnosis-link');">Diagnosis</a>
+                
+                <a class="navbar-brand" id="order-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('order-link');">Orders & Results</a>
+
+                <a class="navbar-brand" id="plan-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('plan-link');">Plan of Care</a>
+              </nav>
+              <br>
+          
+              <p class="main-title">History of presenting complaints</p>
+              
+                <div class="input-group col-lg-12">
+
+                  <div class="container" id="template-div">
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">View all</label>
+    
+                      <svg xmlns="http://www.w3.org/2000/svg" id="template-icon" width="26" height="26" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                      </svg>
+                  </div>
+
+
+                  <div class="col-md-12">
+                    <div id="tag-input" class="tag-input-holder">
+                      <input type="text" id="tag" placeholder="Start type your complaint" onkeyup="addTag(event)" autocomplete="off">
+                       
+                      <div class="mic-div">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                        <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                      </svg>
+                    </div> 
+        
+                    </div>
+                  </div>  
+                   
+                <div class="col-md-12" id="save-this-template">
+                  <div class="col-md-8"><p class="save-this-template-title " >Save this template</p></div>
+                  <div class="col-md-3"><input id="save-this-template-input" class="form-control"  type="text" placeholder="Enter name"></div>
+                  <div class="col-md-1"><button type="button" class="save-this-template-btn">Save</button></div>
+                </div>
+
+                </div>
+                <br>
+            <br>
+               
+            <div class="container" id="container-footer">
+                <footer>
+                  <a href="/emrEncounter">  <button type="button" id="footer-btn">CONTINUE</button></a>
+                </footer>
+            </div>
+          </div>
+          
+          <!-- HPC End -->
+          
+          
+          <!-- Exam Start -->
+          
+          <div class="col-lg-6" id="exam">
+             <nav class="navbar">
+                <a class="navbar-brand" id="intake-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('intake-link');">Intake</a>
+                
+                <a class="navbar-brand" id="hpc-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('hpc-link');">HPC</a>
+                
+                <a class="navbar-brand" id="exam-link" style="margin:-8%;padding:6%;color: #5F42A6;border: 6px solid;border-top: none;border-right: none;border-left: none;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('exam-link');">Examination and Review</a>
+                
+                <a class="navbar-brand" id="diagnosis-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('diagnosis-link');">Diagnosis</a>
+                
+                <a class="navbar-brand" id="order-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('order-link');">Orders & Results</a>
+
+                <a class="navbar-brand" id="plan-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('plan-link');">Plan of Care</a>
+              </nav>
+              <br>
+         
+              <p class="main-title">Examination and Review</p>
+                   
+                   <div class="container" id="template-div">
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">Template 1</label>
+    
+                      <label class="label label-default" id="template-label">View all</label>
+    
+                      <svg xmlns="http://www.w3.org/2000/svg" id="template-icon" width="26" height="26" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                      </svg>
+                  </div>
+                  
+               <br>
+			<!-- VITALS TABLE -->
+            <p class="vitals-title">General</p>
+                 
+           
+                <table class="main-table">
+            
+                    <tbody>
+                      <tr>
+                        <th scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">1</p></div></th>
+                        <td class="e-row"><p class="vitals">Built</p>
+                        
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              
+                              </div>
+                            </div>  
+                          </div>
+                        
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" style="width: 20px;background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">2</p></div></th>
+                        <td><p class="vitals">Stable</p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              
+                              </div>
+                            </div>  
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">3</p></div></th>
+                        <td><p class="vitals">Febrile</p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              
+                              </div>
+                            </div>  
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">4</p></div></th>
+                        <td><p class="vitals">Communicable</p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              
+                              </div>
+                            </div>  
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">5</p></div></th>
+                        <td><p class="vitals">Conscious</p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              
+                              </div>
+                            </div>  
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">6</p></div></td>
+                        <td><p class="vitals">Anaemic</p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              
+                              </div>
+                            </div>  
+                          </div>
+                        </td>    
+                      </tr>
+
+                      <tr>
+                        <td scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">7</p></div></td>
+                        <td><p class="vitals">Facial </p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              
+                              </div>
+                            </div>  
+                          </div>
+                        </td>    
+                      </tr>
+
+                      <tr>
+                        <td scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">8</p></div></td>
+                        <td><p class="vitals">Any Other </p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              
+                              </div>
+                            </div>  
+                          </div>
+                        </td>    
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  
+                  
+                <p class="main-title">Local</p>
+                
+           
+                <table class="main-table">
+            
+                    <tbody>
+                      <tr>
+                        <td scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">1</p></div></td>
+                        <td class="e-row"><p class="vitals">Local 1</p>
+                        
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              </div>
+                            </div>  
+                          </div>
+                        </td>
+                      </tr>
+
+
+                      <tr>
+                        <td scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">2</p></div></td>
+                        <td><p class="vitals">Local 2</p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div>    
+                              </div>
+                            </div>  
+                          </div>
+                        </td>
+                      </tr>
+
+
+                      <tr>
+                        <td scope="row" style="background-color: #f8f8f8;"><div class="rounded-circle"><p class="circle-text">3</p></div></td>
+                        <td><p class="vitals">Local 3</p>
+                          <div class="input-group col-lg-12">
+                            <div class="col-md-12">
+                              
+                              <div id="tag-input" class="tag-input-holder">
+                                <input type="text" id="tag" placeholder="Write here" onkeyup="addTag(event)" autocomplete="off">
+                                 
+                                <div class="mic-div">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                                  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                                  <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                              </div> 
+                              </div>
+                            </div>  
+                          </div>
+                        </td>    
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+
+                  <div class="col-md-12" id="save-this-template">
+                    <div class="col-md-8"><p class="save-this-template-title " >Template modified</p></div>
+                    <div class="col-md-3"><input id="save-this-template-input" class="form-control"  type="text" placeholder="Enter name"></div>
+                    <div class="col-md-1"><button type="button" class="save-this-template-btn">Save</button></div>
+                  </div>
+  
+
+               
+               <br>
+               <br>
+               <br>
+               
+               <br>
+               <br>
+               <br>
+               
+               <br>
+               <br>
+               <br>
+               
+            <div class="container" id="container-footer">
+                <footer>
+                    <button type="button" id="footer-btn">CONTINUE</button>
+                </footer>
+            </div>
+          </div>
+          
+          
+          <!-- Exam End -->
+          
+          
+          <!-- Diagnosis Start -->
+            <div class="col-lg-6" id="diagnosis">
+              <nav class="navbar">
+                <a class="navbar-brand" id="intake-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('intake-link');">Intake</a>
+                
+                <a class="navbar-brand" id="hpc-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('hpc-link');">HPC</a>
+                
+                <a class="navbar-brand" id="exam-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('exam-link');">Examination and Review</a>
+                
+                <a class="navbar-brand" id="diagnosis-link" style="margin:-8%;padding:6%;color: #5F42A6;border: 6px solid;border-top: none;border-right: none;border-left: none;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('diagnosis-link');">Diagnosis</a>
+                
+                <a class="navbar-brand" id="order-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('order-link');">Orders & Results</a>
+
+                <a class="navbar-brand" id="plan-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('plan-link');">Plan of Care</a>
+              </nav>
+              <br>
+         
+              <!-- CHIEF COMPLAINTS -->
+              <p class="main-title">Diagnosis</p>
+               <div class="input-group col-lg-12">
+                  <div class="col-md-12">
+                    
+                    <div id="tag-input" class="tag-input-holder">
+                      <input type="text" id="tag" placeholder="Write here" autocomplete="off">
+                       
+                      <div class="mic-div">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                        <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                      </svg>
+                    </div> 
+                    
+                    </div>
+                  </div>  
+                </div>
+
+                <div class="row">
+
+                  <form>
+                    <div class="radio-group">
+                    <div class="col-lg-5">
+                      <div class="form-check" style="text-align: right;">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" id="radio-text1" for="flexRadioDefault">
+                          Primary
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-5">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label" id="radio-text2" for="flexRadioDefault">
+                          Secondary
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <form>
+                    <div class="radio-group">
+                      <div class="col-lg-5">
+                      <div class="form-check" style="text-align: right;">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                        <label class="form-check-label" id="radio-text3" for="flexRadioDefault1">
+                          Preliminary
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-5">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                        <label class="form-check-label" id="radio-text4" for="flexRadioDefault2">
+                          Final
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+  
+                <form>
+                    <div class="radio-group">
+                      <div class="col-lg-5">
+                      <div class="form-check" style="text-align: right;">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5">
+                        <label class="form-check-label" id="radio-text5" for="flexRadioDefault">
+                          Active
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-5">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault6">
+                        <label class="form-check-label" id="radio-text6" for="flexRadioDefault">
+                          Inactive
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                
+                  
+
+                </form>
+                <div><button class="add-btn" id="enter">ADD</button></div>
+                
+                
+                <div class="form-group" id="G44-dropdown">
+                  <select class="form-control"  id="G44" style="border-radius: 5px">
+                    <option disabled selected hidden><p class="department">G44.3</p></option>
+                    <option>G41.311 Acute post-traumatic headache, intractable</option>
+                    <option>G42.311 Acute post-traumatic headache, intractable</option>
+                    <option>G43.311 Acute post-traumatic headache, intractable</option>
+                    <option>G44.311 Acute post-traumatic headache, intractable</option>
+                  </select>
+                </div>
+
+                </div>
+                <br>
+                <br>
+               <br>
+			<!-- VITALS TABLE -->
+			
+			
+                <div class="col-md-12" id="list-view-div">
+                  <p id="Diagnosis-des">Acute pharyngitis</p>
+                  <div class="row">
+                    <div class="col-md-1">
+                      <span class="material-icons">
+                        check_circle_outline
+                        </span>
+                    </div>
+                    <div class="col-md-11" id="diagnosis-prio">Secondary, Preliminary Diagnosis Active</div>
+                  </div>
+
+                  <hr id="diagnosis-hrline">
+                  <p id="icd-title">ICD code</p>
+                  <div class="row">
+                    <div class="col-md-1" id="icd-value">G44.311</div>
+                    <div class="col-md-9" id="icd-des">Acute post-traumatic headache, intractable</div>
+                    <div class="col-md-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                  </div>
+                    <div class="col-md-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
+                        <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="col-md-12" id="list-view-div">
+                  <p id="Diagnosis-des">Acute pharyngitis</p>
+                  <div class="row">
+                    <div class="col-md-1">
+                      <span class="material-icons">
+                        check_circle_outline
+                        </span>
+                    </div>
+                    <div class="col-md-11" id="diagnosis-prio">Secondary, Preliminary Diagnosis Active</div>
+                  </div>
+
+                  <hr id="diagnosis-hrline">
+                  <p id="icd-title">ICD code</p>
+                  <div class="row">
+                    <div class="col-md-1" id="icd-value">G44.311</div>
+                    <div class="col-md-9" id="icd-des">Acute post-traumatic headache, intractable</div>
+                    <div class="col-md-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                  </div>
+                    <div class="col-md-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
+                        <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                <div class="col-md-12" id="list-view-div">
+                  <p id="Diagnosis-des">Acute pharyngitis</p>
+                  <div class="row">
+                    <div class="col-md-1">
+                      <span class="material-icons">
+                        check_circle_outline
+                        </span>
+                    </div>
+                    <div class="col-md-11" id="diagnosis-prio">Secondary, Preliminary Diagnosis Active</div>
+                  </div>
+
+                  <hr id="diagnosis-hrline">
+                  <p id="icd-title">ICD code</p>
+                  <div class="row">
+                    <div class="col-md-1" id="icd-value">G44.311</div>
+                    <div class="col-md-9" id="icd-des">Acute post-traumatic headache, intractable</div>
+                    <div class="col-md-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                  </div>
+                    <div class="col-md-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
+                        <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              
+
+                <button type="button" class="add-more-btn">ADD MORE</button>
+         
+			
+           
+            <div class="container" id="container-footer">
+                <footer>
+                    <button type="button" id="footer-btn">CONTINUE</button>
+                </footer>
+            </div>
+          </div>
+          <!-- Diagnosis End -->
+          
+          
+          <!-- Order start -->
+              <div class="col-lg-6" id="order">
+              <nav class="navbar">
+                <a class="navbar-brand" id="intake-link" style="margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('intake-link');">Intake</a>
+                
+                <a class="navbar-brand" id="hpc-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('hpc-link');">HPC</a>
+                
+                <a class="navbar-brand" id="exam-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('exam-link');">Examination and Review</a>
+                
+                <a class="navbar-brand" id="diagnosis-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('diagnosis-link');">Diagnosis</a>
+                
+                <a class="navbar-brand" id="order-link" style="margin:-8%;padding:6%;color: #5F42A6;border: 6px solid;border-top: none;border-right: none;border-left: none;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('order-link');">Orders & Results</a>
+
+                <a class="navbar-brand" id="plan-link" style="margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('plan-link');">Plan of Care</a>
+              </nav>
+              <br>
+              
+              </div>
+          
+          <!-- Order end -->
+          
+          
+          <!-- Plan of Care Start-->
+          
+           <div class="col-lg-6" id="planofcare">
+                <nav class="navbar">
+                <a class="navbar-brand" id="intake-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('intake-link');">Intake</a>
+                
+                <a class="navbar-brand" id="hpc-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('hpc-link');">HPC</a>
+                
+                <a class="navbar-brand" id="exam-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('exam-link');">Examination and Review</a>
+                
+                <a class="navbar-brand" id="diagnosis-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('diagnosis-link');">Diagnosis</a>
+                
+                <a class="navbar-brand" id="order-link" style="  margin:-8%;padding:6%;border: 6px solid;border-top: none;border-right: none;border-left: none;border-bottom-color: #ECECEC;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('order-link');">Orders & Results</a>
+
+                <a class="navbar-brand" id="plan-link" style="margin:-8%;padding:6%;color: #5F42A6;border: 6px solid;border-top: none;border-right: none;border-left: none;font-size:16px;font-weight:bold;text-align:left;" onclick="navigateToggle('plan-link');">Plan of Care</a>
+              </nav>
+              <br>
+          
+              <!-- CHIEF COMPLAINTS -->
+              <p class="planofcare-title">Plan of care</p>
+              
+              
+              <form>
+                <div class="row" id="radio-row">
+                  <div class="col-md-3">
+                    <input class="form-check-input" type="radio" name="toggler" id="rdb1" onclick="show1();" value="1"><span class="radio-text" id="rtext1">Disposition</span> 
+                  </div>
+                  <div class="col-md-3">
+                    <input class="form-check-input" type="radio" name="toggler" id="rdb2" value="2"><span class="radio-text" id="rtext2">Referrals</span>  
+                  </div>
+                  <div class="col-md-3">
+                    <input class="form-check-input" type="radio" name="toggler" id="rdb3" value="3"><span class="radio-text" id="rtext3">Medication List</span>  
+                  </div>
+                  <div class="col-md-3">
+                    <input class="form-check-input" type="radio" name="toggler" id="rdb4" value="4"><span class="radio-text" id="rtext4">Advice</span>  
+                  </div>
+                </div>
+              </form>
+
+              <div class="col-md-12" id="blk-1" style="display: none;">
+                <div class="input-group col-lg-12">
+                    <p class="plan-titles">Disposition</p>
+                    <form>
+                    <div class="row-md-3">
+                      <input class="form-check-input" type="radio" name="disposition" id="" value="Disposal"><span class="radio-text">Disposal</span>  
+                    </div>
+                    <div class="row-md-3">
+                      <input class="form-check-input" type="radio" name="disposition" id="" value="E&D"><span class="radio-text">Evaluate and Disposal </span>  
+                    </div>
+                    <div class="row-md-3">
+                      <input class="form-check-input" type="radio" name="disposition" id="" value="Admissions"><span class="radio-text">Admissions</span>  
+                    </div>
+                  </form>
+                </div>
+              </div>
+              
+              
+              
+              <div class="col-md-12" id="blk-2" style="display: none;">
+                <div class="input-group col-lg-12">
+                  <div class="col-md-12">
+                    <p class="plan-titles">Referrals</p>
+                    <div class="row">
+                      <div class="col-md-5">
+                        
+                        <div class="form-group">
+                          <select class="form-control" id="sel1" style="border-radius: 5px;margin-left: 2%;">
+                            <option value="" disabled selected hidden><p class="department">Department</p></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <select class="form-control" id="sel1" style="border-radius: 5px;">
+                            <option disabled selected hidden><p class="doctor">Doctor</p></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  <div id="tag-input" class="tag-input-holder">
+                      <input type="text" id="tag" placeholder="Reason for Reference" autocomplete="off">
+                      <div class="mic-div">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                        <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                      </svg>
+                    </div> 
+                  </div>
+
+                  </div>  
+                </div>
+              </div>
+              
+              
+              
+              <div class="col-md-12" id="blk-3" style="display: none;">
+              
+              
+              <div class="row">
+                <div class="input-group col-lg-12">
+                  <div class="col-md-12">
+                    <p class="plan-titles">Medication List</p>
+                    <div class="col-md-12" id="medication-outer-div">
+                       
+                       <div class="row">
+                        <div class="col-md-8">
+                        <form>
+                          <div class="input-group" id="medication-search">
+                            <div class="form-outline">
+                              <input type="search" id="mname" style="border-radius: 5px;" placeholder="Medication name" class="form-control" />
+                            </div>
+                          </div>
+                        </form>
+                        </div>
+                        
+                        <div class="col-md-2">
+                        <form>
+                          <div class="input-group" id="medication-strength">
+                            <div class="form-outline">
+                              <input type="text" id="mstrength" style="border-radius: 5px;" placeholder="Strength" class="form-control" />
+                            </div>
+                          </div>
+                        </form>
+                        </div>
+                        
+                        <div class="col-md-2">
+                          <div class="form-group" id="quan" style="padding: 10px">
+                            <select class="form-control" id="mg" style="width: 100%;border-radius: 5px;">
+                              <option disabled selected hidden><p class="department">Select</p></option>
+                              <option value="Mg">Mg</option>
+                              <option value="g">g</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+
+                       <div class="row">
+                        <div class="col-md-2">
+                          <div class="form-group" id="freq" style="padding: 10px;">
+                            <select class="form-control" id="freq" style="width: 100%;border-radius: 5px;">
+                              <option disabled selected hidden><p class="department">Frequncy</p></option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group" id="quantity" style="padding: 10px;">
+                            <select class="form-control" id="quantity" style="width: 100%;border-radius: 5px;">
+                              <option disabled selected hidden><p class="department">Quantity</p></option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group" id="dura" style="padding: 10px;">
+                            <select class="form-control" id="dura" style="width: 100%;border-radius: 5px;">
+                              <option disabled selected hidden><p class="department">Duration</p></option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                          </div>
+                        </div>
+                        
+
+                        
+                      
+                      <!-- <form>
+                        <div class="row-md-2">
+                          <input class="form-check-input" type="radio" name="disposition" id="Disposal" value="Disposal" value="Disposal"><span class="radio-text">Disposal</span>  
+                        </div>
+                        <div class="row-md-2">
+                          <input class="form-check-input" type="radio" name="disposition" id="Evaluate and Disposal" value="Evaluate and Disposal" value="Evaluate and Disposal"><span class="radio-text">Evaluate and Disposal </span>  
+                        </div>
+                        </form>
+                      -->
+        
+                      </div>
+                      
+                   
+                      
+                       <!--<div class="col-md-3">
+                          <form>
+                            Starting Date:
+                            <input id="datepicker">
+                          </form>
+                        </div> -->
+                      
+
+
+                      <!--  <div class="row">
+                        <div id="tag-input" class="tag-input-holder" style="width: 96%;margin-left: 2%;">
+                          <input autocomplete="off" type="text" id="instructions" placeholder="Special Instructions" autocomplete="off">
+                           
+                          <div class="mic-div">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                            <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                          </svg>
+                        </div> 
+                        </div>
+                      </div> -->
+                      
+
+
+                      <div class="row">
+                        <button id="enter" class="medication-add-btn">ADD</button>
+                      </div>
+                      
+                    </div>
+                  </div> 
+                </div>
+              </div>
+              
+              
+              
+              
+
+               <div class="col-md-12" id="medication-list">
+                <div class="row">
+                  <div class="col-md-6" id="medication-list-title">Medication</div>
+                  <div class="col-md-2" id="medication-list-title">Duration</div>
+                  <div class="col-md-2" id="medication-list-title">Quantity</div>
+                  <div class="col-md-2" id="medication-list-title">Starting from</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6" id="medication-list-details">Erythrocycin 500 mg</div>
+                  <div class="col-md-2" id="medication-list-details">5 Days</div>
+                  <div class="col-md-2" id="medication-list-details">10</div>
+                  <div class="col-md-2" id="medication-list-details">12 Jun 2021</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6" id="medication-list-title">Special Instuctions</div>
+                  <div class="col-md-2" id="medication-list-title">Administration</div>
+                  <div class="col-md-2" id="medication-list-title">Frequency</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6" id="medication-list-details">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>
+                  <div class="col-md-2" id="medication-list-details">Before Food</div>
+                  <div class="col-md-2" id="medication-list-details">1-0-1</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-10"></div>
+                  <div class="col-md-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                  </div>
+                  <div class="col-md-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
+                      <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              
+       
+              </div>
+              
+
+            
+              
+              
+              <div class="col-md-12" id="blk-4" style="display: none;">
+                <div class="input-group col-lg-12">
+                  <div class="col-md-12">
+                    <p class="plan-titles">Advice</p>
+                    <div id="tag-input" class="tag-input-holder">
+                      <input type="text" id="tag" placeholder="Advice" autocomplete="off">
+                       
+                      <div class="mic-div">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
+                        <path fill-rule="evenodd" d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                      </svg>
+                    </div> 
+                    </div>
+                  </div>  
+                </div>
+              </div>
+              
+              
+                
+            <div class="container" id="container-footer">
+                <footer>
+                    <button type="button" id="footer-btn">Preview Summary</button>
+                </footer>
+            </div>
+          </div>
+          
+          <!-- Plan of care End -->
+
+    <!--USER PROFILE-->
+    <div class="col-lg-3">
+     
+        <table id="profile-header">
+          <tr>
+            <td style="padding: 5%;"><div class="profile-img" ></div></td>
+          
+            <td class="profile-details"> 
+              <p class="profile-user-name">Ashok kumar</p>
+              <p class="user-phone-number">+91 75503 20768</h5>
+            </td>
+            <td class="profile-arrow-right">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="blue" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+          <td colspan="3">
+            <div class="col-md-12" id="profile-temp">
+          <div class="col-lg-4"><p class="blood-pressure-copy">Blood Pressure <span class="bpdot"></span> </p><p class="blood-pressure-unit">90/120 mmHg</p> </div>
+          <div class="col-lg-4"><p class="temperature-copy">Temperature <span class="temdot"></span> </p><p class="temperature-copy-unit">90 deg F</p>
+            
+            <p class="down-arrow-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67z"/>
+            </svg></p>
+        </div>
+          <div class="col-lg-4"><p class="respiratory-rate-copy">Respiratory Rate <span class="repdot"></span></p><p class="respiratory-rate-copy-unit">90 PM</p> </div>
+        </div>
+          </td>
+          </tr>
+        </table>
+    <!--Profile unit start-->
+      
+
+        <!--Profile unit end-->
+
+        <div class="form">
+          <ul class="tab-group" style="border: 2px solid;border-left-style: none;border-right-style: none;border-color: #D3D3D3">
+            <table id="tab-row">
+              <tr class="tab-row">
+                <td class="col-md-3" id="summary-bottom"><h3 class="tab" style="color:#fff;text-align: center;"><a  id="summary" href="#signup" ><b id="summary">Summary</b></a></h3></td>
+                <td class="col-md-3" id="visit-bottom"><h3 class="tab" style="text-align: center;color: #000;"><a id="visit" href="#login"><b id="visit">Visit</b></a></h3></td>
+              </tr>
+            </table>
+          </ul>
+          
+      <!-- USER PROFILE SUMMARY TEMPLATE -->    
+      <div class="tab-content">
+       <div id="signup">   
+        <div class="col">
+          <div id="profile-container">
+            <div>
+               <div class="col-md-6"><p class="summary-title">Medical History</p></div>
+                <div class="col-md-6"> <svg id="plus-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#525DCC" class="bi bi-plus" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg><span class="add-text">ADD</span>
+               </div>
+               <div class="col-md-12" id="card-border">
+                <li>
+                    <input type="radio" class="history1"/> &nbsp;History 1 <br>
+                    <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;active</p>
+                    <input type="radio" class="summary-subtitle"/> &nbsp;History 2<br>
+                    <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;active</p>
+                  </li>
+                <button class="view-all-btn">4 MORE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+     <br>
+     <div class="col">
+      <div id="profile-container">
+        <div>
+            <div class="col-md-6"><p class="summary-title">Surgical History</p></div>
+            <div class="col-md-6"> <svg id="plus-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#525DCC" class="bi bi-plus" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg><span class="add-text">ADD</span>
+          </div>
+         
+          <div class="col-md-12" id="card-border">
+            <li>
+              <input type="radio"/> &nbsp; Surgery name 1<br>
+              <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;inactive</p>
+              <input type="radio"/> &nbsp; Surgery name 2<br>
+              <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;active</p>
+            </li>
+            <button class="view-all-btn">4 MORE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="col">
+      <div id="profile-container">
+        <div>
+            <div class="col-md-6"><p class="summary-title">Allergy</p></div>
+            <div class="col-md-6"> <svg id="plus-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#525DCC" class="bi bi-plus" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg><span class="add-text">ADD</span>
+          </div>
+  
+          <div class="col-md-12" id="card-border">
+            <li>
+              <input type="radio"/> &nbsp; Pollen<br>
+              <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;inactive</p>
+              <input type="radio"/> &nbsp; Pollen<br>
+              <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;active</p>
+            </li>
+            <button class="view-all-btn">4 MORE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      <br>
+      <div class="col">
+        <div id="profile-container">
+          <div>
+              <div class="col-md-6"><p class="summary-title">Medical History</p></div>
+              <div class="col-md-6"> <svg id="plus-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#525DCC" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg><span class="add-text">ADD</span>
+            </div>
+              
+            <div class="col-md-12" id="card-border">
+              <li>
+                <input type="radio"/> &nbsp; History 1<br>
+                <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;inactive</p>
+                <input type="radio"/> &nbsp; History 2<br>
+                <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;active</p>
+              </li>
+              <button class="view-all-btn">4 MORE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="col">
+        <div id="profile-container">
+          <div>
+              <div class="col-md-6"><p class="summary-title">Medical History</p></div>
+              <div class="col-md-6"> <svg id="plus-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#525DCC" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg><span class="add-text">ADD</span>
+            </div>
+           
+            <div class="col-md-12" id="card-border">
+              <li>
+                <input type="radio"/> &nbsp; History 1<br>
+                <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;inactive</p>
+                <input type="radio"/> &nbsp; History 2<br>
+                <p class="summary-acive-status">Since 3 months &nbsp;<input type="radio">&nbsp;active</p>
+              </li>
+              <button class="view-all-btn">4 MORE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="col">
+        <div id="profile-container">
+          <div>
+            <div class="col-md-12"><p class="summary-title">Medications</p></div>  
+            <div class="col-md-12" id="card-border">
+              <p class="add-medications-title">Add Medications</p>
+
+              <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control"  id="medication-name" placeholder="Medication name">
+              </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group has-search">
+                  <span class="fa fa-search form-control-feedback"></span>
+                  <input type="text" class="form-control" id="strength" placeholder="Strength">
+                </div>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-5">
+                <div class="form-group has-search">
+                  <span class="fa fa-search form-control-feedback"></span>
+                  <input type="text" class="form-control" id="mg"  placeholder="Strength">
+                </div>
+              </div>
+              </div>
+              <p class="using-since-title">Using Since</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <input type="text" class="form-control" id="strength" placeholder="No.of">
+                  </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                  <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <input type="text" class="form-control" id="mg"  placeholder="Month(s)">
+                  </div>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group has-search">
+                      <button type="submit" id="save-add-another-btn" class="form-control"><p class="save-add-another-txt">SAVE & ADD ANOTHER</p></button>
+                    </div>
+                  </div>
+                  <div class="col-md-0"></div>
+                  <div class="col-md-2">
+                    <div class="form-group has-search">
+                      <button type="submit" id="save-btn-val" ><p class="save-btn-txt">SAVE</p></button>
+                    </div>
+                  </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+     </div>
+            
+            <!-- USER PROFILE VISIT TEMPLATE -->
+            <div id="login">   
+              <div class="timeline-container">
+                <div class="right text-wrapper">
+                  <div class="text">
+                    <div class="col-md-10">
+                      <h3 id="timeline-date">12 Jun 2020 12:12 PM</h3>
+                      <p id="timeline-content" class="container">Comprehensive Metabolic Panel. Lipid Profile, T4, Metabolic Panel. Lipid Profile</p>
+                    </div>
+                    <div class="col-md-2">
+                      <img id="timeline-icon" th:src="@{/img/timeline1.png}" alt="">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right text-wrapper">
+                  <div class="text">
+                    <div class="col-md-10">
+                      <h3 id="timeline-date">12 Jun 2020 12:12 PM</h3>
+                      <p id="timeline-content">Comprehensive Metabolic Panel. Lipid Profile, T4, Metabolic Panel. Lipid Profile</p>
+                    </div>
+                    <div class="col-md-2">
+                      <img id="timeline-icon" th:src="@{/img/timeline2.png}" alt="">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right text-wrapper">
+                  <div class="text">
+                    <div class="col-md-10">
+                      <h3 id="timeline-date">12 Jun 2020 12:12 PM</h3>
+                      <p id="timeline-content">Comprehensive Metabolic Panel. Lipid Profile, T4, Metabolic Panel. Lipid Profile</p>
+                    </div>
+                    <div class="col-md-2">
+                      <img id="timeline-icon" th:src="@{/img/timeline3.png}" alt="">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right text-wrapper">
+                  <div class="text">
+                    <div class="col-md-10">
+                      <h3 id="timeline-date">12 Jun 2020 12:12 PM</h3>
+                      <p id="timeline-content">Comprehensive Metabolic Panel. Lipid Profile, T4, Metabolic Panel. Lipid Profile</p>
+                    </div>
+                    <div class="col-md-2">
+                      <img id="timeline-icon" th:src="@{/img/timeline4.png}" alt="">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right text-wrapper">
+                  <div class="text">
+                    <div class="col-md-10">
+                      <h3 id="timeline-date">12 Jun 2020 12:12 PM</h3>
+                      <p id="timeline-content">Comprehensive Metabolic Panel. Lipid Profile, T4, Metabolic Panel. Lipid Profile</p>
+                    </div>
+                    <div class="col-md-2">
+                      <img id="timeline-icon" th:src="@{/img/timeline5.png}" alt="">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right text-wrapper">
+                  <div class="text">
+                    <div class="col-md-10">
+                      <h3 id="timeline-date">12 Jun 2020 12:12 PM</h3>
+                      <p id="timeline-content">Comprehensive Metabolic Panel. Lipid Profile, T4, Metabolic Panel. Lipid Profile</p>
+                    </div>
+                    <div class="col-md-2">
+                      <img id="timeline-icon" th:src="@{/img/timeline6.png}" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+            </div>
+          </div><!-- tab-content -->
+    </div> <!-- /form --> 
+  </div>
+</div>
+
+   
+        
+        <div layout:fragment="script" th:remove="tag">
+        
+   
+            
+        <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/moment.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/datetime-moment.js}"></script>
+        <script type="text/javascript" th:src="@{/js/intakescript.js}"></script>
+        <script type="text/javascript" th:src="@{/js/planscript.js}"></script>
+        <script type="text/javascript" th:src="@{/js/ascript.js}"></script>
+        <script type="text/javascript"> </script>
+        </div>
+    </body>
+</html>
