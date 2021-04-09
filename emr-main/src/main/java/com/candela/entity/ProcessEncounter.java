@@ -12,11 +12,13 @@ import javax.persistence.Table;
 @Table(name = "emr_encounters")
 public class ProcessEncounter 
 {
-	 @Id 
-	 @GeneratedValue(strategy = GenerationType.AUTO)
+	
 	private int id;
 	 
-	@Column(name = "details")
+
+	 @Id 
+	 @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	 @Column(name = "details")
 private	String details;
 	
 @Column(name = "patientid")

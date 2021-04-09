@@ -9,7 +9,8 @@ public interface EmrEncountersRepo extends JpaRepository<ProcessEncounter, Integ
 {
 
 	ProcessEncounter findAllById(int id);
-
+	ProcessEncounter findByPatientId(String id);
+	
 
 
 	

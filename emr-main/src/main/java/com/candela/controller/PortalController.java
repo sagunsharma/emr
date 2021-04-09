@@ -69,7 +69,7 @@ public class PortalController {
     	apmnt2.put("status", "inprogress");
     	apmnts.add(apmnt2);
     	Map<String, String> apmnt3 = new HashMap<String, String>();
-    	apmnt3.put("id", "2");
+    	apmnt3.put("id", "3");
     	apmnt3.put("patientname", "Patient3");
     	apmnt3.put("email", "patient2@gmail.com");
     	apmnt3.put("phone", "8887676764");
@@ -79,7 +79,7 @@ public class PortalController {
     	apmnt3.put("status", "inprogress");
     	apmnts.add(apmnt3);
     	Map<String, String> apmnt4 = new HashMap<String, String>();
-    	apmnt4.put("id", "2");
+    	apmnt4.put("id", "4");
     	apmnt4.put("patientname", "Patient4");
     	apmnt4.put("email", "patient4@gmail.com");
     	apmnt4.put("phone", "6587676700");
@@ -135,7 +135,7 @@ public class PortalController {
     		{
     			if(!tag.isEmpty())
     			{	
-    			jarr.put("tag");
+    			jarr.put(tag);
     			}
     		}
     		
