@@ -12,12 +12,12 @@ import javax.persistence.Table;
 @Table(name = "emr_encounters")
 public class ProcessEncounter 
 {
-	
-	private int id;
-	 
 
 	 @Id 
 	 @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private int id;
+	 
+
 	 @Column(name = "details")
 private	String details;
 	
@@ -51,6 +51,7 @@ private	String patientid;
 		this.patientid = patientid;
 	}
 
+	
 	public Date getUpdatedat() {
 		return updatedat;
 	}
@@ -71,6 +72,7 @@ private	String patientid;
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
     
     
     

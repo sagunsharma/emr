@@ -94,12 +94,12 @@ public class PortalController {
     }
 	
     @GetMapping("/processencounter")
-    public String processencounter(@RequestParam int id, Model model) {
+    public String processencounter(@RequestParam String  id, Model model) {
     	
     	model.addAttribute("id",id);
-    	if(emrEncounterRepo.findAllById(id)!=null)
+    	if(emrEncounterRepo.findByPatientid(id)!=null)
     	{
-	    	ProcessEncounter pe = emrEncounterRepo.findAllById(id);
+	    	ProcessEncounter pe = emrEncounterRepo.findByPatientid(id);
 	    	System.out.println("ProcessEncounter:"+pe);
 	    	String details=pe.getDetails();
 	    	System.out.println("details:"+details);
@@ -117,6 +117,8 @@ public class PortalController {
 	    		model.addAttribute("respiratory_rate", jobj.get("respiratory_rate"));
 	    		model.addAttribute("pulse", jobj.get("pulse"));
 	    		model.addAttribute("SPO2", jobj.get("SPO2"));
+	    		
+	    	
 	    	}
     	}
         return "processencounter";

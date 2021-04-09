@@ -57,7 +57,10 @@
                 <div class="input-group col-lg-12">
                   <div class="col-md-12">
                     <div id="tag-input" class="tag-input-holder">
-                      <input type="text" id="tag" placeholder="Start type your complaint" style="border-bottom-style:none" onkeyup="addTag(event)" autocomplete="off" th:value="${tags}" th:name="tag">        
+                    <th:block th:each="tag : ${tags}">
+                    <div class="tag-view"><span style="font-size: 14px; font-weight: bold;" th:text="${tag}"></span><span class="material-icons" style="font-weight: bold;">close</span></div>
+                     </th:block>
+                      <input type="text" id="tag" placeholder="Start type your complaint" style="border-bottom-style:none" onkeyup="addTag(event)" autocomplete="off" th:name="tag">        
                       <div class="mic-div">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" id="mic-icon" fill="#FFFFFF" class="bi bi-mic-fill" viewBox="0 -5 16 27">
                         <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
